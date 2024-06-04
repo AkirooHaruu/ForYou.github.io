@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For my love aokii</title>
+<style>
+  body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+    position: relative;
+  }
+  h1 {
+    color: white; /* Change color to white */
+    position: absolute;
+    top: 20px; /* Adjust position */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+    opacity: 0; /* Start with opacity 0 */
+    animation: fadeIn 2s ease forwards; /* Fade-in animation */
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0; /* Start opacity */
+    }
+    to {
+      opacity: 1; /* End opacity */
+    }
+  }
+  .heart {
+    position: relative;
+    width: 60px;
+    height: 54px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  .heart::before,
+  .heart::after {
+    position: absolute;
+    content: "";
+    left: 30px;
+    top: 0;
+    width: 30px;
+    height: 48px;
+    background-color: red;
+    border-radius: 30px 30px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+  }
+  .heart::after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+  }
+  .paper {
+    position: absolute;
+    top: calc(50% + 80px);
+    left: calc(50% - 60px);
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+  }
+  .message {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    margin: 10px 0;
+    color: black; /* Change color to black */
+  }
+  .message.active {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+<h1>For my love aokii</h1> <!-- Added heading -->
+<div class="heart"></div>
+<div class="paper" id="paper"></div>
+
+<script>
+  const heart = document.querySelector('.heart');
+  const paper = document.getElementById('paper');
+  const messages = ["HII AOKII FOR YOU", "ILOVEYOU", "IMISSYOUU", "AKO NALNG KASE", "WHAT IF AKO NALNG? "];
+  let currentIndex = 0;
+
+  function showNextMessage() {
+    if (currentIndex < messages.length) {
+      const message = document.createElement('div');
+      message.classList.add('message');
+      message.textContent = messages[currentIndex];
+      paper.appendChild(message);
+      setTimeout(() => {
+        message.classList.add('active');
+        currentIndex++;
+      }, 500); // Adjust timing here
+    } else {
+      // Reset currentIndex when all messages are shown
+      currentIndex = 0;
+      // Clear previous messages
+      paper.innerHTML = "";
+      // Show alert message
+      alert("what if gusto kita' what if ako nalng? '.");
+      // Display GIF with "ILOVEYOU" message
+      const loveGif = document.createElement('img');
+      loveGif.src = 'https://media.tenor.com/tO85mO366xYAAAAj/amore-love-you.gif'; // Replace 'path/to/love.gif' with the actual path to your GIF
+      loveGif.alt = 'WHAT IF GUSTO NA KITA? ';
+      paper.appendChild(loveGif);
+    }
+  }
+
+  heart.addEventListener('click', () => {
+    // If there are no messages showing, show the next message
+    if (paper.innerHTML === "") {
+      paper.style.display = "block";
+      showNextMessage();
+    } else {
+      // Otherwise, clear previous messages and show the next message
+      paper.innerHTML = "";
+      showNextMessage();
+    }
+  });
+</script>
+
+</body></html>
